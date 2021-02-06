@@ -1,10 +1,10 @@
-﻿using Entities.Abstract;
+﻿using Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace DataAccess.Abstract
+namespace Core.DataAccess
 {
     // Generic Constraint
     // T değişkeni sadece class ipi referans tip olacak ve IEntity veya ondan türetilecek bir nesne olabilir

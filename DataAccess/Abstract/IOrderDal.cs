@@ -6,8 +6,7 @@ using System.Text;
 
 namespace DataAccess.Abstract
 {
-    public interface IProductDal: IEntityRepository<Product>  // public yapalim. Default internaldir. Interface'in operasyonlari deault publictir
+    public interface IOrderDal:IEntityRepository<Order>
     {
- 
     }
 }
