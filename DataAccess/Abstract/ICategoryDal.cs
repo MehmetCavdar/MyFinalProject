@@ -8,7 +8,7 @@ namespace DataAccess.Abstract
 {
     public interface ICategoryDal : IEntityRepository<Category>
     {
-       // Category Get(Func<object, bool> p);
-       // Bu satir nereden GEldi bilmiyorum
+        //Category Get(Func<object, bool> p);
+        // Bu satir nereden GEldi bilmiyorum
     }
 }
