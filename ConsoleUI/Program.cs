@@ -14,7 +14,15 @@ namespace ConsoleUI
             //8.derste 7.dersten farkli olarak newledigimiz kismi degisirdik new EfProductDal() yaptik
 
 
-            // ProductTest();
+            ProductTest();
+            // CategoryTest();
+        }
+
+
+
+
+        private static void CategoryTest()
+        {
             CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
             foreach (var category in categoryManager.GetAll())
             {
@@ -26,9 +34,10 @@ namespace ConsoleUI
         {
             ProductManager productManager = new ProductManager(new EfProductDal());
             //foreach (var product in productManager.GetAllByCategoryId(2))
-            foreach (var product in productManager.GetByUnitPrice(40, 100))
-            {
-                Console.WriteLine(product.ProductName);
+           // foreach (var product in productManager.GetByUnitPrice(40, 100))
+                foreach (var product in productManager.GetProductDetails())
+                {
+                Console.WriteLine(product.ProductName + "/" + product.CategoryName);
             }
         }
     } 
