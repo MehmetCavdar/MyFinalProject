@@ -10,19 +10,13 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            //newleme yapacagiz. Daha sonra gerek kalmayacak
-            //8.derste 7.dersten farkli olarak newledigimiz kismi degisirdik new EfProductDal() yaptik
-
-
             ProductTest();
             // CategoryTest();
         }
 
-
-
-
         private static void CategoryTest()
         {
+            //newleme yapacagiz. Daha sonra gerek kalmayacak
             CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
             foreach (var category in categoryManager.GetAll())
             {
@@ -31,13 +25,21 @@ namespace ConsoleUI
         }
 
         private static void ProductTest()
-        {
+        { 
+         
             ProductManager productManager = new ProductManager(new EfProductDal());
-            //foreach (var product in productManager.GetAllByCategoryId(2))
-           // foreach (var product in productManager.GetByUnitPrice(40, 100))
-                foreach (var product in productManager.GetProductDetails())
+            var result = productManager.GetProductDetails();
+
+            if (result.Success == true)
+            {
+                foreach (var product in result.Data)
                 {
-                Console.WriteLine(product.ProductName + "/" + product.CategoryName);
+                    Console.WriteLine(product.ProductName + "/" + product.CategoryName);
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
             }
         }
     } 
