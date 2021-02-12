@@ -11,7 +11,7 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             ProductTest();
-            // CategoryTest();
+            //CategoryTest();
         }
 
         private static void CategoryTest()
@@ -36,9 +36,12 @@ namespace ConsoleUI
                 {
                     Console.WriteLine(product.ProductName + "/" + product.CategoryName);
                 }
+                Console.WriteLine("------------------------------");
+                Console.WriteLine(result.Message);
             }
             else
             {
+                Console.WriteLine(result.Success);
                 Console.WriteLine(result.Message);
             }
         }
