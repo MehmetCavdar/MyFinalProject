@@ -14,9 +14,13 @@ namespace ConsoleUI
             //CategoryTest();
         }
 
+
+
+
+
         private static void CategoryTest()
         {
-            //newleme yapacagiz. Daha sonra gerek kalmayacak
+                                 //newleme yapacagiz. Daha sonra gerek kalmayacak
             CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
             foreach (var category in categoryManager.GetAll())
             {

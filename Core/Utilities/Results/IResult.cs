@@ -5,7 +5,7 @@ using System.Text;
 namespace Core.Utilities.Results
 {
 
-    //Temel Voidler icin baslangic
+    //Temel voidler icin baslangic
     public interface IResult   //public
     {
         bool Success { get; }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Core.Utilities.Results
 {
-    public class Result : IResult
+    public class Result : IResult       //public
     {
 
         public Result(bool success, string message):this(success)  // bu this olmadigi icin 2 saata ugrastim

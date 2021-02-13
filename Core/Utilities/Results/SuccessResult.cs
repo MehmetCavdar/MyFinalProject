@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Core.Utilities.Results
 {
-    public class SuccessResult:Result
+    public class SuccessResult:Result  // Public ve Inherit
     {
         public SuccessResult(string message) : base(true, message)
         { 

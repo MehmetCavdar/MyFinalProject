@@ -5,8 +5,8 @@ using System.Text;
 namespace Core.Entities
 {
 
-    //IEntitiy implement eden class bir veritabani tablsudur
-    public interface IEntity
+ 
+    public interface IEntity             //IEntity implement eden class bir veritabani tablosudur
     {
     }
 }

@@ -17,7 +17,7 @@ namespace DataAccess.Concrete.EntityFramework
             // optionsBuilder.UseSqlServer(@"Server=175.45.2.12"); Normalde Sql serverin bulundugu yerin Ip adresi 
         }
 
-        //veri tabanindaki hangi nesene hangiye karsilik gelecek belirtmeliyiz
+        //veri tabanindaki hangi nesneye hangiye karsilik gelecek belirtmeliyiz
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Customer> Customers { get; set; }
