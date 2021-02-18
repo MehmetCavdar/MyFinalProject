@@ -1,13 +1,17 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Core.Aspects.Autofac.Validation;  // manuel ekledim
 
 namespace Business.Concrete
 {
@@ -21,18 +25,29 @@ namespace Business.Concrete
         }
 
 
+
+        [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
-            //business codes
-          
-            if (product.ProductName.Length < 2)
-            {
-                //magic strings
-                return new ErrorResult(Messages.ProductNameInvalid);
-            }
+
             _productDal.Add(product);
-            return new SuccessResult(Messages.ProductAdded); // step 49
+
+            return new SuccessResult(Messages.ProductAdded);
         }
+
+
+
+
+        //[ValidationAspect(typeof(ProductValidator))]
+        //public IResult Add(Product product)
+        //{
+        //  //  business codes
+
+        //    _productDal.Add(product);
+
+        //    return new SuccessResult(Messages.ProductAdded);
+        //}
+
 
         public IDataResult<List<Product>> GetAll()
         {
