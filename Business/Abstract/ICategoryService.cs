@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Core.Utilities.Results;  // ekledim IDataResult icin ekledim
+using Core.Utilities.Results;  // IDataResult icin ekledim
 
 namespace Business.Abstract
 {
