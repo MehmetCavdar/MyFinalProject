@@ -16,5 +16,9 @@ namespace Business.Abstract
         IDataResult<Product> GetById(int productId);                        // eklendi 10.02
         IResult Add(Product product);                                        // eklendi 10.02
         IResult Update(Product product);                                        // eklendi 10.02
+
+
+        IResult AddTransactionalTest(Product product);
+
     }
 }

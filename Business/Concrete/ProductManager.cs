@@ -15,6 +15,8 @@ using Core.Aspects.Autofac.Validation;  // manuel ekledim
 using Business.CCS;
 using System.Linq;
 using Core.Utilities.Business;
+using Business.BusinessAspects.Autofac;
+using Core.Aspects.Autofac.Caching;
 
 namespace Business.Concrete
 {
@@ -32,8 +34,9 @@ namespace Business.Concrete
         }
 
         //Claim
-        //[SecuredOperation("product.add,admin")]
+        [SecuredOperation("product.add,admin")]
         [ValidationAspect(typeof(ProductValidator))]
+        [CacheRemoveAspect("IProductService.Get")]
         public IResult Add(Product product)
         {
             //business Codes
@@ -43,19 +46,19 @@ namespace Business.Concrete
                                CheckIfProductCountOfCategoryCorrect(product.CategoryId),
                                CheckIfCategoryLimitExceeded());
 
-            if (result !=null)
+            if (result != null)
             {
 
                 return result;
             }
 
-             _productDal.Add(product);
+            _productDal.Add(product);
 
-              return new SuccessResult(Messages.ProductAdded);
+            return new SuccessResult(Messages.ProductAdded);
         }
 
 
-
+        [CacheAspect]
         public IDataResult<List<Product>> GetAll()
         {
             if (DateTime.Now.Hour == 24)  // saat  22 ise hata döndür (denemek icin)
@@ -74,10 +77,12 @@ namespace Business.Concrete
         }
 
 
+        [CacheAspect]
         public IDataResult<Product> GetById(int productId)  //  Tanimladik 10.02..2021
         {
             return new SuccessDataResult<Product>(_productDal.Get(p => p.ProductId == productId));
         }
+
 
         public IDataResult<List<Product>> GetByUnitPrice(decimal min, decimal max)
         {
@@ -85,12 +90,16 @@ namespace Business.Concrete
         }
 
 
+
         public IDataResult<List<ProductDetailDto>> GetProductDetails()
         {
             return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails(), Messages.ProductsDetailed);
         }
 
-        public IResult Update(Product product)
+
+        [ValidationAspect(typeof(ProductValidator))]
+        [CacheRemoveAspect("IProductService.Get")]
+        public IResult  Update(Product product)
         {
             IResult result = BusinessRules.Run(CheckIfProductNameExist(product.ProductName),
                                CheckIfProductCountOfCategoryCorrect(product.CategoryId),                     
@@ -136,6 +145,26 @@ namespace Business.Concrete
             }
             return new SuccessResult();
         }
+
+
+
+        //[TransactionScopeAspect]
+        public IResult AddTransactionalTest(Product product)
+        {
+
+            Add(product);
+            if (product.UnitPrice < 10)
+            {
+                throw new Exception("");
+            }
+
+            Add(product);
+
+            return null;
+        }
+
+
+
 
     }
 }
