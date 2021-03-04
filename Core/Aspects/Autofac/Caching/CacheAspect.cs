@@ -5,7 +5,7 @@ using Core.Utilities.IOC;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Extensions.DependencyInjection; // elle ekledik
+using Microsoft.Extensions.DependencyInjection;  // GetService metotu icin manuel ekledik. Visual otomatik getirmedi
 using System.Linq;
 
 namespace Core.Aspects.Autofac.Caching

@@ -17,6 +17,7 @@ using System.Linq;
 using Core.Utilities.Business;
 using Business.BusinessAspects.Autofac;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
 
 namespace Business.Concrete
 {
@@ -36,7 +37,8 @@ namespace Business.Concrete
         //Claim
         [SecuredOperation("product.add,admin")]
         [ValidationAspect(typeof(ProductValidator))]
-        [CacheRemoveAspect("IProductService.Get")]
+        [CacheRemoveAspect("IProductService.Get")] // içerisinde Get olan tüm keyleri iptal et anlamına gelir (değişmiş bilgileri okumamak, uçurmak icin)
+
         public IResult Add(Product product)
         {
             //business Codes
@@ -61,7 +63,7 @@ namespace Business.Concrete
         [CacheAspect]
         public IDataResult<List<Product>> GetAll()
         {
-            if (DateTime.Now.Hour == 24)  // saat  22 ise hata döndür (denemek icin)
+            if (DateTime.Now.Hour == 24)                                                       // saat  24 ise hata döndür (denemek icin)
             {
                 Console.WriteLine("bakim zamani döngüsü calisti");
                 return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
@@ -70,15 +72,16 @@ namespace Business.Concrete
         }
 
 
-        public IDataResult<List<Product>> GetAllByCategoryId(int id) //dikkat 02.03.2021
+        public IDataResult<List<Product>> GetAllByCategoryId(int id)                         //dikkat 02.03.2021
         {
 
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.CategoryId == id));
         }
 
 
-        [CacheAspect]
-        public IDataResult<Product> GetById(int productId)  //  Tanimladik 10.02..2021
+        [CacheAspect]           
+        [PerformanceAspect(5)]                                                   // bu metotun calismasi 5 saniyei gecerse uyari verir
+        public IDataResult<Product> GetById(int productId)                  //  Tanimladik 10.02..2021
         {
             return new SuccessDataResult<Product>(_productDal.Get(p => p.ProductId == productId));
         }
@@ -98,7 +101,7 @@ namespace Business.Concrete
 
 
         [ValidationAspect(typeof(ProductValidator))]
-        [CacheRemoveAspect("IProductService.Get")]
+        [CacheRemoveAspect("IProductService.Get")]  // içerisinde Get olan tüm keyleri iptal et anlamına gelir (değişmiş bilgileri okumamak, uçurmak icin)
         public IResult  Update(Product product)
         {
             IResult result = BusinessRules.Run(CheckIfProductNameExist(product.ProductName),
@@ -149,22 +152,25 @@ namespace Business.Concrete
 
 
         //[TransactionScopeAspect]
-        public IResult AddTransactionalTest(Product product)
-        {
+        //public IResult AddTransactionalTest(Product product)
+        //{
 
-            Add(product);
-            if (product.UnitPrice < 10)
-            {
-                throw new Exception("");
-            }
+        //    Add(product);
+        //    if (product.UnitPrice < 10)
+        //    {
+        //        throw new Exception("");
+        //    }
 
-            Add(product);
+        //    Add(product);
 
-            return null;
-        }
+        //    return null;
+        //}
 
 
 
 
     }
 }
+
+
+

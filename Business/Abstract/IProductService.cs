@@ -18,7 +18,7 @@ namespace Business.Abstract
         IResult Update(Product product);                                        // eklendi 10.02
 
 
-        IResult AddTransactionalTest(Product product);
+        ///////IResult AddTransactionalTest(Product product);   // 
 
     }
 }
