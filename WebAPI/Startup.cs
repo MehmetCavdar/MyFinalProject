@@ -1,4 +1,4 @@
-using Business.Abstract;
+﻿using Business.Abstract;
 using Business.Concrete;
 using Core.DependencyResolvers;
 using Core.Extensions;
@@ -42,7 +42,7 @@ namespace WebAPI
             //services.AddSingleton<IProductService, ProductManager>();   // bu kismlari WebAPI program kisminda AutoFAc ile tanimladik
             //services.AddSingleton<IProductDal, EfProductDal>(); // bu kismlari WebAPI program kisminda AutoFAc ile tanimladik
 
-
+            services.AddCors();   //Frontend'ten  erişimi için Configurasyon yapmaliyiz 17.Hafta
 
 
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
@@ -62,6 +62,8 @@ namespace WebAPI
                     };
                 });
 
+
+            // 15.ders ekledik
             services.AddDependencyResolvers(new Core.Utilities.IOC.ICoreModule[] {
             
             new CoreModule()
@@ -84,6 +86,9 @@ namespace WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+
+            app.UseCors(builder=>builder.WithOrigins ("http://localhost:4200").AllowAnyHeader());   //Frontend'ten  erişimi için Configurasyon yapmaliyiz 17.Hafta. Buradaki konumu önemli
 
             app.UseHttpsRedirection();
 

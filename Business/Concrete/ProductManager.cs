@@ -80,7 +80,7 @@ namespace Business.Concrete
 
 
         [CacheAspect]           
-        [PerformanceAspect(5)]                                                   // bu metotun calismasi 5 saniyei gecerse uyari verir
+        [PerformanceAspect(5)]                                                   // bu metotun calismasi 5 saniye gecerse  uyari logu kaydedecek sekilde ayarlanmis. Biz baska türlü yapabilriz
         public IDataResult<Product> GetById(int productId)                  //  Tanimladik 10.02..2021
         {
             return new SuccessDataResult<Product>(_productDal.Get(p => p.ProductId == productId));
