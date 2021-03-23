@@ -30,10 +30,8 @@ namespace WebAPI.Controllers
         public IActionResult GetAll()
         {
             //Dependency chain --
-
-
-            Thread.Sleep(5000); // ekledik 17.ders 5sn uzatmak demek
-            var result = _productService.GetAll(); 
+            Thread.Sleep(1000); // ekledik 17.ders 1 sn uzatmak demek
+            var result = _productService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -58,7 +56,20 @@ namespace WebAPI.Controllers
 
 
 
-            [HttpPost("add")]
+        [HttpGet("getbycategory")]
+        public IActionResult GetByCategory(int categoryId)
+        {
+            var result = _productService.GetAllByCategoryId(categoryId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+
+
+        [HttpPost("add")]
 
         public IActionResult Add(Product product)
         {

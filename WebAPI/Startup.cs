@@ -87,6 +87,7 @@ namespace WebAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.ConfigureCustomExceptionMiddleware();  // 20.derste ekledik
 
             app.UseCors(builder=>builder.WithOrigins ("http://localhost:4200").AllowAnyHeader());   //Frontend'ten  erişimi için Configurasyon yapmaliyiz 17.Hafta. Buradaki konumu önemli
 

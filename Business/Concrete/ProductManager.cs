@@ -35,27 +35,22 @@ namespace Business.Concrete
         }
 
         //Claim
-        [SecuredOperation("product.add,admin")]
+        //[SecuredOperation("product.add,admin")]    // Frontent kapsaminda 20.derste kapattik´. Cünkü frontent altyapisi hazir degil
         [ValidationAspect(typeof(ProductValidator))]
         [CacheRemoveAspect("IProductService.Get")] // içerisinde Get olan tüm keyleri iptal et anlamına gelir (değişmiş bilgileri okumamak, uçurmak icin)
 
         public IResult Add(Product product)
         {
             //business Codes
-
-
             IResult result = BusinessRules.Run(CheckIfProductNameExist(product.ProductName),
                                CheckIfProductCountOfCategoryCorrect(product.CategoryId),
                                CheckIfCategoryLimitExceeded());
-
             if (result != null)
             {
-
                 return result;
             }
 
             _productDal.Add(product);
-
             return new SuccessResult(Messages.ProductAdded);
         }
 
