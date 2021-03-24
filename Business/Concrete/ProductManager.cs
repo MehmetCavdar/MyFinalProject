@@ -35,7 +35,7 @@ namespace Business.Concrete
         }
 
         //Claim
-        //[SecuredOperation("product.add,admin")]    // Frontent kapsaminda 20.derste kapattik´. Cünkü frontent altyapisi hazir degil
+        [SecuredOperation("product.add,admin")]    // Frontent kapsaminda 21.derste tekrar aktiv ettik
         [ValidationAspect(typeof(ProductValidator))]
         [CacheRemoveAspect("IProductService.Get")] // içerisinde Get olan tüm keyleri iptal et anlamına gelir (değişmiş bilgileri okumamak, uçurmak icin)
 
