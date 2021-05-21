@@ -1,3 +1,3 @@
 # MyFinalProject
 
-CSharp Backend for Northwind database
+Backend (CSharp) for Northwind database
